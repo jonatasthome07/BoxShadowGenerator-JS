@@ -1,6 +1,6 @@
 //Classe
 class BoxShadowGenerator {
-    constructor(horizontal, horizontalRef, vertical, verticalRef, blur, blurRef, spread, spreadRef, box, rule, webkitRule, mozRule){
+    constructor(horizontal, horizontalRef, vertical, verticalRef, blur, blurRef, spread, spreadRef, previewBox, rule, webkitRule, mozRule){
         this.horizontal = horizontal
         this.horizontalRef = horizontalRef
         this.vertical = vertical
@@ -9,10 +9,30 @@ class BoxShadowGenerator {
         this.blurRef = blurRef
         this.spread = spread
         this.spreadRef = spreadRef
-        this.box = box
+        this.previewBox = previewBox
         this.rule = rule
         this.webkitRule = webkitRule
         this.mozRule = mozRule
+    }
+
+    initialize(){
+        this.horizontalRef.value = this.horizontal.value;
+        this.verticalRef.value = this.vertical.value;
+        this.blurRef.value = this.blur.value
+        this.spreadRef.value = this.spread.value
+        this.applyRule()
+        this.showRules()
+    }
+
+    applyRule(){
+        this.previewBox.style.boxShadow = `${this.horizontalRef.value}px ${this.verticalRef.value}px ${this.blurRef.value}px ${this.spreadRef.value}px #000000`
+        this.currentRule = this.previewBox.style.boxShadow
+    }
+
+    showRules(){
+        this.rule.innerText = this.currentRule
+        this.webkitRule.innerText = this.currentRule
+        this.mozRule.innerText = this.currentRule
     }
 }
 
@@ -25,10 +45,13 @@ const blur = document.querySelector("#blur")
 const blurRef = document.querySelector("#blur-value")
 const spread = document.querySelector("#spread")
 const spreadRef = document.querySelector("#spread-value")
-const box = document.querySelector("#box")
+const previewBox = document.querySelector("#box")
 const rule = document.querySelector("#rule span")
-const webkitRule = document.querySelector("webkit-rule span")
-const mozRule = document.querySelector("moz-rule span")
+const webkitRule = document.querySelector("#webkit-rule span")
+const mozRule = document.querySelector("#moz-rule span")
 
+const boxShadow = new BoxShadowGenerator(horizontal, horizontalRef, vertical, verticalRef, blur, blurRef, spread, spreadRef, box, rule, webkitRule, mozRule)
+
+boxShadow.initialize()
 
 //Eventos
