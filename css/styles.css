@@ -4,6 +4,10 @@
     padding: 0;
 }
 
+body{
+   margin: 20px 50px;
+}
+
 h2{
     margin-bottom: 1.6rem;
     text-align: center;
